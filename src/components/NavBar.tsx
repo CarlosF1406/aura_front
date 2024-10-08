@@ -16,13 +16,15 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
   return (
   <>
     { !hidden &&
-      <Navbar className="m-0 p-1 w-full bg-slate-600">
+      <Navbar className="m-0 p-1 flex-row w-full justify-between bg-slate-600">
         <NavbarBrand className="">
+          <Link href="">
           <Image 
             alt={"Aura Logo"}
             src={AuraLogo}
             className="pointer-events-none"
           />
+          </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
