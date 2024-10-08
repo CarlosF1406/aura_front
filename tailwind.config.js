@@ -9,11 +9,10 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {
-      fontFamily:{
-        'montserrat': ['Montserrat'],
-      },
+    fontFamily:{
+      'sans': ['Montserrat'],
     },
+    extend: {},
   },
   darkMode: "class",
   plugins: [nextui({
