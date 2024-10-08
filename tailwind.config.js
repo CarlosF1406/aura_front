@@ -15,6 +15,9 @@ export default {
   plugins: [nextui({
     themes: {
       dark: {
+        fontFamily:{
+          'main': ['Montserrat']
+        },
         colors: {
           primary: {
             DEFAULT: "#BEF264",
