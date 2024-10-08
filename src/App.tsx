@@ -3,7 +3,7 @@ function App() {
 
   return (
     <>
-      <h1 className="text-3x1 font-bold underline">
+      <h1 className="text-3x1 font-montserrat underline">
         Testing
       </h1>
       <div className="flex gap-3 items-center">

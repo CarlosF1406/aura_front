@@ -9,15 +9,16 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        'montserrat': ['Montserrat'],
+      },
+    },
   },
   darkMode: "class",
   plugins: [nextui({
     themes: {
       dark: {
-        fontFamily:{
-          'main': ['Montserrat']
-        },
         colors: {
           primary: {
             DEFAULT: "#BEF264",
