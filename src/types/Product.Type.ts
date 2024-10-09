@@ -1,10 +1,15 @@
 export type TProduct = {
   id: number | string;
   name: string;
-  cost: number;
+  product: number | string;
+  price: number;
 }
 
 export type TCart = {
-  productID: number | string;
+  _id: number | string;
+  user: string;
+  product: number | string;
+  name: string;
+  price: number | string;
   amount: number;
 }

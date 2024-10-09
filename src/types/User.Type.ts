@@ -9,7 +9,7 @@ export type TLogin = {
 };
 
 export type TRegister = {
-  fullName: string;
+  username: string;
   email: string;
   password: string;
 }
