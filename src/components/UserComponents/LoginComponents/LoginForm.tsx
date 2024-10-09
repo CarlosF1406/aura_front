@@ -15,6 +15,10 @@ const LoginFormPopup: React.FC = () => {
     navigate('/dashboard');
   };
 
+  const handleRegisterRedirect = () => {
+    navigate('/register');
+  };
+
   return (
     <div style={popupStyle}>
       <Card style={{ width: '450px', background: colors.background }}>
@@ -24,7 +28,6 @@ const LoginFormPopup: React.FC = () => {
         <CardBody style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <Input
             fullWidth
-            isClearable
             placeholder="Correo"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -32,7 +35,6 @@ const LoginFormPopup: React.FC = () => {
           />
           <Input
             fullWidth
-            isClearable
             type="password"
             placeholder="Contraseña"
             value={password}
@@ -41,11 +43,16 @@ const LoginFormPopup: React.FC = () => {
           />
         </CardBody>
         <CardFooter style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <ButtonGroup>
-            <Button onClick={handleLogin} style={{ background: colors.primary, color: colors.white }}>
-              Iniciar Sesión
-            </Button>
-          </ButtonGroup>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <ButtonGroup>
+              <Button onClick={handleLogin} style={{ background: colors.primary, color: colors.white }}>
+                Iniciar Sesión
+              </Button>
+            </ButtonGroup>
+            <p onClick={handleRegisterRedirect} style={{ cursor: 'pointer', color: colors.primary, marginTop: '30px', textAlign: 'center' }}>
+              ¿No tienes una cuenta? Regístrate aquí
+            </p>
+          </div>
         </CardFooter>
       </Card>
     </div>
