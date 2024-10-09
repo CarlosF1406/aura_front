@@ -9,6 +9,9 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
+    fontFamily:{
+      'sans': ['Montserrat'],
+    },
     extend: {},
   },
   darkMode: "class",
@@ -17,8 +20,14 @@ export default {
       dark: {
         colors: {
           primary: {
-            DEFAULT: "#BEF264",
+            DEFAULT: "#fff",
             foreground: "#000000",
+          },
+          secondary: {
+            DEFAULT: "#5271ff",
+          },
+          tertiary: { 
+            DEFAULT: "#333",
           },
           focus: "#BEF264",
         },
