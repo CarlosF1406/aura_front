@@ -26,7 +26,7 @@ export default {
           secondary: {
             DEFAULT: "#5271ff",
           },
-          tertiary: { 
+          default: { 
             DEFAULT: "#333",
           },
           focus: "#BEF264",

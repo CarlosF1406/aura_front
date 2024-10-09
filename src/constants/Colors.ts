@@ -1,9 +1,9 @@
 export const colors = {
-  background: "#D3D3D3",
+  background: "#000000",
   gradient: "radial-gradient(circle, rgba(40,84,125,1) 0%, rgba(61,56,82,1) 65%)",
-  primary: "#3d3852",
-  secondary: "#28547d",
-  tertiary: "#0593b5",
+  primary: "#5271ff",
+  secondary: "#fff",
+  tertiary: "#333",
   quaternary: "#abd1f5",
   quintessential: "#8ca4a8",
   gray0: "#b7b7b7",
