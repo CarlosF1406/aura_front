@@ -14,7 +14,11 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import AuraLogo from "../assets/old_images/logo_icon_small.png"
+import { BurgerButton } from "../assets/tsx_icons/BurgerButton";
+import { ShoppingCartIcon } from "../assets/tsx_icons/ShoppingCartIcon";
+import { UserAccountIcon } from "../assets/tsx_icons/UserAccountIcon";
+import AuraLogo from "../assets/old_images/logo_icon_small.png";
+import { colors } from "../constants/Colors";
 
 
 
@@ -71,8 +75,8 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
           <NavbarItem className="sm:flex lg:hidden">
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
-                <Button isIconOnly color="secondary" href="#" variant="flat">
-                  M
+                <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
+                  <BurgerButton fill={colors.secondary}/>
                 </Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="User Menu" variant="flat" className="dark bg-neutral-300">
@@ -92,16 +96,16 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
             </Dropdown>
           </NavbarItem>
           <NavbarItem>
-            <Button isIconOnly color="secondary" href="#" variant="flat">
-              B
+            <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
+              <ShoppingCartIcon fill={colors.secondary}/>
             </Button>
           </NavbarItem>
           { logged ? 
           <NavbarItem>
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
-                <Button isIconOnly color="secondary" href="#" variant="flat">
-                  C
+                <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
+                  <UserAccountIcon fill={colors.secondary}/>
                 </Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="User Menu" variant="flat" className="dark bg-neutral-300 ">
@@ -116,8 +120,8 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
             </Dropdown>
           </NavbarItem> :
           <NavbarItem>
-            <Button isIconOnly color="secondary" href="#" variant="flat">
-              D
+            <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
+              <UserAccountIcon fill={colors.secondary}/>
             </Button>
           </NavbarItem>
           }
