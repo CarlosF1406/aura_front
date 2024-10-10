@@ -1,5 +1,7 @@
 import { HomeSection } from "../components/LandingComponents/HomeSection";
 import { ProductsSection } from "../components/LandingComponents/ProductsSection";
+import { ExperienceSection } from "../components/LandingComponents/ExperienceSection";
+import { SpecsSection } from "../components/LandingComponents/SpecsSection";
 import { colors } from "../constants/Colors";
 
 
@@ -16,6 +18,14 @@ export default function HomePage () {
       
       <div id="products-section">
         <ProductsSection/>
+      </div>
+
+      <div id="experience-section">
+        <ExperienceSection/>
+      </div>
+
+      <div id="specs-section">
+        <SpecsSection/>
       </div>
     </div>
   )
