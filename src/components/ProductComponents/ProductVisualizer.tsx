@@ -13,7 +13,7 @@ export function ProductVisualizer ({ id, name, price, picture }: IProductVisuali
   return (
     <div 
       aria-label="Product showcase"
-      className="flex flex-col gap-8 p-5 h-full justify-start items-center bg-white"
+      className="flex flex-col gap-6 p-3 h-full justify-center items-center bg-white"
       style={{
         minHeight: "20vh",
         minWidth: `25vw`,
@@ -21,7 +21,7 @@ export function ProductVisualizer ({ id, name, price, picture }: IProductVisuali
       }}
     >
       <p className="font-bold text-xl" style={{color: colors.gray5}}>{name}</p>
-      <p className="font-bold text-lg" style={{color: colors.gray2}}>${price} COP</p>
+      <p className="font-semibold text-lg" style={{color: colors.gray2}}>${price} COP</p>
       <Image 
           alt={"Product image"}
           src={picture}

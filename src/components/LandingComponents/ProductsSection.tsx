@@ -1,4 +1,3 @@
-import { Button, Image } from "@nextui-org/react";
 import AuraOWSO8 from "../../assets/old_images/AuraOWSO8.png"
 import AuraT12 from "../../assets/old_images/AuraT12.png"
 import AuraOWS10 from "../../assets/old_images/AuraOWS10.png"
