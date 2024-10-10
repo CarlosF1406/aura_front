@@ -13,11 +13,10 @@ export function ProductCard ({ id, name, price, picture }: IProductVisualizerPro
   return (
     <div 
       aria-label="Product showcase"
-      className="flex flex-col gap-6 p-3 h-full justify-center items-center bg-white"
+      className="flex flex-row gap-4 p-3 h-full justify-start items-center bg-white"
       style={{
-        minHeight: "20vh",
-        minWidth: `25vw`,
-        borderRadius: 30,
+        minWidth: `400px`,
+        borderRadius: 15,
       }}
     >
       <p className="font-bold text-xl" style={{color: colors.gray5}}>{name}</p>
