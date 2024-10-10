@@ -11,11 +11,11 @@ export default function HomePage () {
       style={{ backgroundColor: colors.transparent }}
     >
       <div id="home-section">
-      <HomeSection/>
+        <HomeSection/>
       </div>
       
       <div id="products-section">
-      <ProductsSection/>
+        <ProductsSection/>
       </div>
     </div>
   )

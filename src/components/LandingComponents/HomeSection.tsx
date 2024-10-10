@@ -28,7 +28,7 @@ export function HomeSection () {
       </div>
       <div
         aria-label="Picture"
-        className="justify-center items-center h-full hidden md:flex md:w-1/2"
+        className="justify-center items-center h-full hidden md:flex md:w-1/2 pointer-events-none"
         style={{ maxWidth: "50%" }}
       >
         <Image 
