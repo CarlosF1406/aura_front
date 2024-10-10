@@ -5,7 +5,7 @@ import { Input } from "@nextui-org/input";
 import { useNavigate } from "react-router-dom";
 import { colors } from '../../../constants/Colors';
 
-const RegisterFormPopup: React.FC = () => {
+export function RegisterFormPopup ({ changeMode } : { changeMode?: any }) { 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -17,7 +17,7 @@ const RegisterFormPopup: React.FC = () => {
   };
 
   const handleLoginRedirect = () => {
-    navigate('/login');
+    changeMode && changeMode();
   };
 
 
@@ -25,7 +25,7 @@ const RegisterFormPopup: React.FC = () => {
     <div style={popupStyle}>
       <Card style={{ width: '450px', background: colors.background }}>
         <CardHeader style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <h3>Registrarse</h3>
+          <h3 className="font-bold">Registrarse</h3>
         </CardHeader>
         <CardBody style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         <Input
@@ -69,15 +69,9 @@ const RegisterFormPopup: React.FC = () => {
 };
 
 const popupStyle: React.CSSProperties = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
   background: colors.gradient,
-  padding: '20px',
+  padding: '4px',
   boxShadow: `0 4px 8px ${colors.shadow.p30}`,
   borderRadius: '8px',
   zIndex: 1000,
 };
-
-export default RegisterFormPopup;

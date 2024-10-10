@@ -1,29 +1,29 @@
 import {
   Image,
-  Link,
   Button,
   Navbar, 
   NavbarBrand, 
   NavbarContent, 
-  NavbarItem, 
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
+  NavbarItem,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from "@nextui-org/react";
 import { BurgerButton } from "../assets/tsx_icons/BurgerButton";
 import { ShoppingCartIcon } from "../assets/tsx_icons/ShoppingCartIcon";
 import { UserAccountIcon } from "../assets/tsx_icons/UserAccountIcon";
 import AuraLogo from "../assets/old_images/logo_icon_small.png";
 import { colors } from "../constants/Colors";
+import { AuthContainer } from "./UserComponents/AuthContainer";
 
 
 
 export function NavBar ({ hidden = false } : { hidden?: boolean }) {
-  const logged = true;
+  const logged = false;
 
 
   const handleHomeButton = () => {
@@ -45,6 +45,7 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
   const handleAboutButton = () => {
     console.log("Go to about section.")
   }
+
 
   return (
   <>
@@ -101,29 +102,36 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
             </Button>
           </NavbarItem>
           { logged ? 
-          <NavbarItem>
-            <Dropdown placement="bottom-end">
-              <DropdownTrigger>
-                <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
-                  <UserAccountIcon fill={colors.secondary}/>
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="User Menu" variant="flat" className="dark bg-neutral-300 ">
-                <DropdownItem key="profile" className="h-14 gap-2">
-                  <p className="font-semibold">Sesión iniciada como</p>
-                  <p className="font-semibold">morochus@amogus.com</p>
-                </DropdownItem>
-                <DropdownItem key="logout" color="danger" onClick={()=>{console.log(`logout button pressed`)}}>
-                  <p>Cerrar sesión</p>
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </NavbarItem> :
-          <NavbarItem>
-            <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
-              <UserAccountIcon fill={colors.secondary}/>
-            </Button>
-          </NavbarItem>
+            <NavbarItem>
+              <Dropdown placement="bottom-end">
+                <DropdownTrigger>
+                  <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
+                    <UserAccountIcon fill={colors.secondary}/>
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu aria-label="User Menu" variant="flat" className="dark bg-neutral-300 ">
+                  <DropdownItem key="profile" className="h-14 gap-2">
+                    <p className="font-semibold">Sesión iniciada como</p>
+                    <p className="font-semibold">morochus@amogus.com</p>
+                  </DropdownItem>
+                  <DropdownItem key="logout" color="danger" onClick={()=>{console.log(`logout button pressed`)}}>
+                    <p>Cerrar sesión</p>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </NavbarItem> :
+            <NavbarItem>
+              <Popover showArrow autoFocus placement="bottom-end" className="dark">
+                <PopoverTrigger>
+                  <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
+                    <UserAccountIcon fill={colors.secondary}/>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="p-1">
+                  <AuthContainer/>
+                </PopoverContent>
+              </Popover>
+            </NavbarItem>
           }
           
         </NavbarContent>
