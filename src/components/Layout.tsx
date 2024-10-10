@@ -3,7 +3,7 @@ import { NavBar } from "./NavBar";
 
 export function Layout ({ children } : { children: ReactNode }) {
   return (
-    <div aria-label="background" className="w-screen h-screen bg-black">
+    <div aria-label="background" className="bg-black overflow-clip">
       <NavBar/>
       {children}
     </div>

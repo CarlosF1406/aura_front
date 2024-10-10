@@ -27,23 +27,28 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
 
 
   const handleHomeButton = () => {
-    console.log("Go to home section.")
+    const scroll = document.querySelector("#home-section")
+    scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
   const handleProductsButton = () => {
-    console.log("Go to products section.")
+    const scroll = document.querySelector("#products-section")
+    scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
   const handleExperienceButton = () => {
-    console.log("Go to experience section.")
+    const scroll = document.querySelector("#experience-section")
+    scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
   const handleSpecsButton = () => {
-    console.log("Go to specifications section.")
+    const scroll = document.querySelector("#specs-section")
+    scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
   const handleAboutButton = () => {
-    console.log("Go to about section.")
+    const scroll = document.querySelector("#about-section")
+    scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
 
@@ -51,7 +56,7 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
   <>
     { !hidden &&
       <Navbar className="m-0 p-1 flex-row w-full justify-evenly">
-        <NavbarBrand className="" onClick={handleHomeButton}>
+        <NavbarBrand className="" onClick={handleHomeButton} style={{cursor:"pointer"}}>
           <Image 
             alt={"Aura Logo"}
             src={AuraLogo}
