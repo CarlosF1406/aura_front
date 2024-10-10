@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { colors } from "../../constants/Colors";
 import { TCart } from "../../types/Product.Type";
+import useLoading from "../../hooks/useLoading";
 
 
 
 export function ShoppingCart ( ) {
+  const { isLoading, startLoading, stopLoading } = useLoading();
   const [productCollection, setProductCollection] = useState<TCart[]>([]);
   const logged = true;
+
+  useEffect(()=>{
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    startLoading();
+    try {
+
+    } catch (error: any) {
+      setProductCollection([]);
+      console.log(error);
+    } finally {
+      stopLoading();
+    }
+  }
 
   const handlePurchaseButton = () => {
     console.log(`Added product with id`)

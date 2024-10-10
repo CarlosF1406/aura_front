@@ -16,7 +16,7 @@ export function ExperienceSection() {
         aria-label="Information"
         className="flex flex-col columns-1 gap-4 justify-center items-center h-full xs:w-screen md:w-1/2"
       >
-        <p className="w-2/3 text-left text-8xl font-bold text-wrap">EN AURA PERSONAS Y TECNOLOGÍA</p>
+        <p className="w-2/3 text-left text-6xl md:text-8xl font-bold text-wrap">EN AURA PERSONAS Y TECNOLOGÍA</p>
         <p className="w-2/3 text-center text-3xl font-bold text-wrap">Nos unimos para hacer de el sonido una experiencia inolvidable</p>
       </div>
       <div

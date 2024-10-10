@@ -47,11 +47,6 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
     scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
-  const handleAboutButton = () => {
-    const scroll = document.querySelector("#about-section")
-    scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
-  }
-
 
   return (
   <>
@@ -74,9 +69,6 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
           <NavbarItem onClick={handleSpecsButton} style={{ cursor:"pointer", userSelect:"none" }}>
             <p> ESPECIFICACIONES </p>
           </NavbarItem>
-          <NavbarItem onClick={handleAboutButton} style={{ cursor:"pointer", userSelect:"none" }}>
-            <p> ACERCA DE </p>
-          </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem className="sm:flex lg:hidden">
@@ -98,9 +90,6 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
                 </DropdownItem>
                 <DropdownItem key="specs" onClick={handleSpecsButton}>
                   <p style={{textAlign:"center"}}>Especificaciones</p>
-                </DropdownItem>
-                <DropdownItem key="about" onClick={handleAboutButton}>
-                  <p style={{textAlign:"center"}}>Acerca de</p>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
