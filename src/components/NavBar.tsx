@@ -19,6 +19,7 @@ import { UserAccountIcon } from "../assets/tsx_icons/UserAccountIcon";
 import AuraLogo from "../assets/old_images/logo_icon_small.png";
 import { colors } from "../constants/Colors";
 import { AuthContainer } from "./UserComponents/AuthContainer";
+import { ShoppingCart } from "./ProductComponents/ShoppingCart";
 
 
 
@@ -86,6 +87,9 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="User Menu" variant="flat" className="dark bg-neutral-300">
+                <DropdownItem key="home" onClick={handleHomeButton}>
+                  <p style={{textAlign:"center"}}>Inicio</p>
+                </DropdownItem>
                 <DropdownItem key="products" onClick={handleProductsButton}>
                   <p style={{textAlign:"center"}}>Productos</p>
                 </DropdownItem>
@@ -102,9 +106,16 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
             </Dropdown>
           </NavbarItem>
           <NavbarItem>
-            <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
-              <ShoppingCartIcon fill={colors.secondary}/>
-            </Button>
+            <Popover showArrow autoFocus placement="bottom-end" className="dark">
+              <PopoverTrigger>
+                <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
+                  <ShoppingCartIcon fill={colors.secondary}/>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="p-1">
+                <ShoppingCart/>
+              </PopoverContent>
+            </Popover>
           </NavbarItem>
           { logged ? 
             <NavbarItem>
