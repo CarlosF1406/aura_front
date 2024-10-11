@@ -35,7 +35,7 @@ export function LoginFormPopup ({ changeMode } : { changeMode?: any }) {
         const response: TResponseData = await authAPI.login(payload);
         if ((response.status===200)) {
           const user: TUser = response.data;
-          const token = response.token;
+          const token = response.data.token;
           const { id } = response.data;
           const USER_ID = id, USER_TOKEN = token;
 

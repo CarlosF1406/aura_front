@@ -24,10 +24,12 @@ import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
 import useAuthContext from "../hooks/useAuthContext";
 import { logout } from "../features/user/userSlice";
 import { setSession } from "../services/jwt";
+import Toaster from "../hooks/useToast";
 
 
 
 export function NavBar ({ hidden = false } : { hidden?: boolean }) {
+  const { showInfoToast } = Toaster();
   const { dispatch } = useAuthContext();
   const appDispatch = useAppDispatch();
   const user = useAppSelector(state => state.user.user);
@@ -57,6 +59,7 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
     appDispatch(logout());
     dispatch({ type: "LOGOUT" });
     setSession(null);
+    showInfoToast(`Sesión cerrada con éxito.`);
   }
 
 
