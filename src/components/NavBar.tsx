@@ -28,14 +28,11 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
   const user = useAppSelector(state => state.user.user);
 
 
-  const handleHomeButton = async () => {
-    await localStorage.setItem("@token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDhhN2ExN2ZkNmYwODQwMjIyNzAxYiIsImlhdCI6MTcyODYyMDUyMCwiZXhwIjoxNzI4NzA2OTIwfQ.fimecPSeghDHvx9f-RBv-IfyAqqMLeSViJ-PyIz7e18");
-    const scroll = document.querySelector("#home-section")
+  const handleHomeButton = async () => {const scroll = document.querySelector("#home-section")
     scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
   const handleProductsButton = () => {
-    localStorage.removeItem("@token")
     const scroll = document.querySelector("#products-section")
     scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
