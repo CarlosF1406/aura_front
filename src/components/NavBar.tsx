@@ -20,11 +20,12 @@ import AuraLogo from "../assets/old_images/logo_icon_small.png";
 import { colors } from "../constants/Colors";
 import { AuthContainer } from "./UserComponents/AuthContainer";
 import { ShoppingCart } from "./ProductComponents/ShoppingCart";
+import { useAppSelector } from "../hooks/useRedux";
 
 
 
 export function NavBar ({ hidden = false } : { hidden?: boolean }) {
-  const logged = false;
+  const user = useAppSelector(state => state.user.user);
 
 
   const handleHomeButton = async () => {
@@ -34,6 +35,7 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
   }
 
   const handleProductsButton = () => {
+    localStorage.removeItem("@token")
     const scroll = document.querySelector("#products-section")
     scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
@@ -111,7 +113,7 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
               </PopoverContent>
             </Popover>
           </NavbarItem>
-          { logged ? 
+          { user ? 
             <NavbarItem>
               <Dropdown backdrop="opaque" placement="bottom-end">
                 <DropdownTrigger>

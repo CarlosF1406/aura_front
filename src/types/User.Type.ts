@@ -17,6 +17,7 @@ export type TRegister = {
 }
 
 export type TUser = {
-  _id?: string;
+  id?: string;
   username?: string;
+  email?: string;
 }

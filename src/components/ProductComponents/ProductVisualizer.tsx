@@ -4,16 +4,18 @@ import { IProductVisualizerProps } from "../../interfaces/ProductVisualizer.Inte
 import useLoading from "../../hooks/useLoading";
 import Toaster from "../../hooks/useToast";
 import ProductService from "../../services/products/Products.Service";
+import { useAppSelector } from "../../hooks/useRedux";
 
 
 
 export function ProductVisualizer ({ id, name, price, picture }: IProductVisualizerProps) {
   const { isLoading, startLoading, stopLoading } = useLoading();
   const { showErrorToast, showSuccessToast } = Toaster();
+  const user = useAppSelector(state => state.user.user);
   const productAPI = new ProductService();
 
   const handlePurchaseButton = async () => {
-    { !isLoading &&
+    { !isLoading && user &&
     startLoading();
     try {
       const pid = {

@@ -7,6 +7,7 @@ import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/rea
 import { ProductCard } from "./ProductCard";
 import ProductService from "../../services/products/Products.Service";
 import { ConfirmPurchaseModal } from "./ConfirmPurchaseModal";
+import { useAppSelector } from "../../hooks/useRedux";
 
 
 
@@ -15,10 +16,10 @@ export function ShoppingCart ( ) {
   const [productCollection, setProductCollection] = useState<TCart[]>([]);
   const [subTotal, setSubTotal] = useState<Number>(0);
   const productAPI = new ProductService();
-  const logged = true;
+  const user = useAppSelector(state => state.user.user);
 
   useEffect(()=>{
-    loadProducts();
+    user && loadProducts();
   }, []);
 
   const loadProducts = async () => {
@@ -70,10 +71,10 @@ export function ShoppingCart ( ) {
         <p>Cargando...</p>
       </> :
       <>
-        { !(productCollection.length > -1) ?
+        { !(productCollection.length > 0) ?
         <>
           <p className="font-bold text-lg" style={{color: colors.gray5}}>¡No hay nada en el carrito!</p>
-          { !logged && 
+          { !user && 
           <p className="font-semibold text-md" style={{color: colors.gray2}}>Inicie sesión para agregar productos al carrito.</p>
           }
         </> : 
