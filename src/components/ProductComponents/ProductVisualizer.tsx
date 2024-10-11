@@ -16,7 +16,10 @@ export function ProductVisualizer ({ id, name, price, picture }: IProductVisuali
     { !isLoading &&
     startLoading();
     try {
-      const { status }: { status: number } = await productAPI.addProduct(String(id));
+      const pid = {
+        productId: String(id)
+      }
+      const { status }: { status: number } = await productAPI.addProduct(pid);
       if ((status===200)) {
         showSuccessToast(`Se ha añadido ${name} al carrito.`);
       } else {

@@ -25,8 +25,8 @@ class ProductService {
     });
   };
 
-  public async addProduct(productID: string): Promise<AxiosResponse<TResponseData>> {
-    return await http.post(`${this.BASE}/products-cart`, productID, {
+  public async addProduct(productId: any): Promise<AxiosResponse<TResponseData>> {
+    return await http.post(`${this.BASE}/products-cart`, productId, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem(`@token`)}`
         }

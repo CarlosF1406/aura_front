@@ -1,4 +1,8 @@
+import { Link } from "@nextui-org/react";
+
 export function Footer() {
+  const ContactLink = import.meta.env.VITE_AURA_MOROCHO;
+
   return (
     <footer
       aria-label="Footer section"
@@ -7,9 +11,11 @@ export function Footer() {
       <p className="text-center text-sm">
         Copyright © 2024 Aura. Todos los derechos reservados.
       </p>
-      <p className="text-center text-sm">
-        Contacto
-      </p>
+      <Link href={ContactLink}>
+        <p className="text-center text-sm underline">
+          Contacto
+        </p>
+      </Link>
     </footer>
   );
 }

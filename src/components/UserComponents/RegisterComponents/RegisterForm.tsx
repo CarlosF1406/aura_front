@@ -2,18 +2,43 @@ import React, { useState } from 'react';
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
-import { useNavigate } from "react-router-dom";
 import { colors } from '../../../constants/Colors';
+import useLoading from '../../../hooks/useLoading';
+import Toaster from '../../../hooks/useToast';
+import UserService from '../../../services/user/User.Service';
+import { TRegister } from '../../../types/User.Type';
 
 export function RegisterFormPopup ({ changeMode } : { changeMode?: any }) { 
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { showErrorToast, showSuccessToast } = Toaster();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
-  const navigate = useNavigate();
+  const userAPI = new UserService();
 
-  const handleRegister = () => {
-    console.log('Registrando', email, password, username);
-    navigate('/dashboard');
+  const handleRegister = async () => {
+    { !isLoading &&
+      startLoading();
+      try {
+        const payload: TRegister = {
+          username: String(username),
+          email: String(email),
+          password: String(password),
+        }
+        const { status }: { status: number } = await userAPI.register(payload);
+        if ((status===200)) {
+          showSuccessToast(`¡Usuario registrado satisfactoriamente!`);
+          showSuccessToast(`Por favor, inicia sesión.`);
+        } else {
+          showErrorToast(`Ocurrió un error al registrar el usuario.`);
+        }
+      } catch (error: any) {
+        showErrorToast(`Ocurrió un error al registrar el usuario.`);
+        console.log(error);
+      } finally {
+        stopLoading();
+      }
+      }
   };
 
   const handleLoginRedirect = () => {
