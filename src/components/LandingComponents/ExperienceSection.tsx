@@ -1,5 +1,4 @@
 import { Image } from "@nextui-org/react";
-//import AuraT12 from "../../assets/old_images/AuraT12.png"
 import assets_experience from "../../assets/old_images/assets_experience.png"
 
 export function ExperienceSection() {
