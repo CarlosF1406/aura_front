@@ -78,9 +78,9 @@ export function ShoppingCart ( ) {
           <div
             className="flex flex-col gap-1 columns-1 w-full h-full"
           >
-            <ProductCard id={`IDANY`} name={`Aura T12`} price={60000} amount={2} returnFunction={loadProducts}/>
-            <ProductCard id={`SECOND`} name={`Aura OWS O8`} price={60000} amount={2} returnFunction={loadProducts}/>
-            <ProductCard id={`TERCIO`} name={`Aura OWS 10`} price={60000} amount={2} returnFunction={loadProducts}/>
+            { productCollection.map((_, index) => (
+              <ProductCard id={productCollection[index].product} name={productCollection[index].name} price={productCollection[index].price} amount={Number(productCollection[index].amount)} returnFunction={loadProducts}/>
+            ))}
           </div>
           <div
             className="flex flex-col gap-1 columns-1 w-full h-full"

@@ -1,13 +1,34 @@
 import { Button, Image } from "@nextui-org/react";
 import { colors } from "../../constants/Colors";
 import { IProductVisualizerProps } from "../../interfaces/ProductVisualizer.Interface";
+import useLoading from "../../hooks/useLoading";
+import Toaster from "../../hooks/useToast";
+import ProductService from "../../services/products/Products.Service";
 
 
 
 export function ProductVisualizer ({ id, name, price, picture }: IProductVisualizerProps) {
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { showErrorToast, showSuccessToast } = Toaster();
+  const productAPI = new ProductService();
 
-  const handlePurchaseButton = () => {
-    console.log(`Added product with id ${id}`)
+  const handlePurchaseButton = async () => {
+    { !isLoading &&
+    startLoading();
+    try {
+      const { status }: { status: number } = await productAPI.addProduct(String(id));
+      if ((status===200)) {
+        showSuccessToast(`Se ha añadido ${name} al carrito.`);
+      } else {
+        showErrorToast(`Ocurrió un error al añadir al carrito.`);
+      }
+    } catch (error: any) {
+      showErrorToast(`Ocurrió un error al añadir al carrito.`);
+      console.log(error);
+    } finally {
+      stopLoading();
+    }
+    }
   }
 
   return (

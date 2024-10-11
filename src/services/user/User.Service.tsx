@@ -7,25 +7,15 @@ class UserService {
   private BASE: string;
 
   constructor() {
-    this.BASE = "users";
+    this.BASE = "/api";
   };
-
 
   public async register(values: TRegister): Promise<AxiosResponse<TResponseData>> {
-    return await http.post(`${this.BASE}`, values);
+    return await http.post(`${this.BASE}/register`, values);
   };
 
-
-  public updateProfile(values: unknown,userId: number): Promise<AxiosResponse<TResponseData>> {
-    return http.put(`${this.BASE}/${userId}`, values, {
-      headers: {
-      Authorization: `Bearer ${localStorage.getItem(`@token`)}`
-      }
-    });
-  }
-
-  public updateProfileImage(values: unknown): Promise<AxiosResponse<TResponseData>> {
-    return http.post(`${this.BASE}/profile/pic`, values, {
+  public async profile(): Promise<AxiosResponse<TResponseData>> {
+    return await http.get(`${this.BASE}/profile`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem(`@token`)}`
         }

@@ -5,6 +5,9 @@ import { colors } from "../../constants/Colors";
 import { ProductVisualizer } from "../ProductComponents/ProductVisualizer";
 
 export function ProductsSection () { 
+  const URL_T12 = import.meta.env.VITE_PRODUCT_ID_T12;
+  const URL_OWSO8 = import.meta.env.VITE_PRODUCT_ID_OWSO8;
+  const URL_OWS10 = import.meta.env.VITE_PRODUCT_ID_OWS10;
 
   return(
     <div 
@@ -61,9 +64,9 @@ export function ProductsSection () {
           aria-label="Products"
           className="flex flex-row columns-3 gap-8 justify-center items-center h-full"
         >
-          <ProductVisualizer id={`AuraOWSO8`} name={`Aura OWS O8`} price={`60.000`} picture={AuraOWSO8}/>
-          <ProductVisualizer id={`AuraT12`} name={`Aura T12`} price={`90.000`} picture={AuraT12}/>
-          <ProductVisualizer id={`AuraOWS10`} name={`Aura OWS 10`} price={`80.000`} picture={AuraOWS10}/>
+          <ProductVisualizer id={URL_OWSO8} name={`Aura OWS O8`} price={`60.000`} picture={AuraOWSO8}/>
+          <ProductVisualizer id={URL_T12} name={`Aura T12`} price={`90.000`} picture={AuraT12}/>
+          <ProductVisualizer id={URL_OWS10} name={`Aura OWS 10`} price={`80.000`} picture={AuraOWS10}/>
         </div>
       </div>
       
