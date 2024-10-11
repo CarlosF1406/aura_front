@@ -2,16 +2,14 @@ import { Image } from "@nextui-org/react";
 import assets_specs from "../../assets/old_images/assets_specs.jpeg"
 
 export function SpecsSection() {
-
   return (
     <div
       aria-label="Main section"
-      className="p-0 m-auto w-screen flex flex-row items-center justify-center xs:columns-1 md:columns-2"
+      className="p-0 m-auto w-screen flex flex-row items-center justify-center xs:columns-1 md:columns-2 relative z-10"
       style={{
         height: `calc(100vh - 72px)`
       }}
     >
-
       <div className="relative w-full h-full">
         <Image
           alt={"assets specs"}
@@ -47,7 +45,6 @@ export function SpecsSection() {
           Livianos.
         </p>
       </div>
-
     </div>
   )
 }
