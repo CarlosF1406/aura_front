@@ -4,26 +4,32 @@ import { IProductVisualizerProps } from "../../interfaces/ProductVisualizer.Inte
 import useLoading from "../../hooks/useLoading";
 import Toaster from "../../hooks/useToast";
 import ProductService from "../../services/products/Products.Service";
+import { useAppSelector } from "../../hooks/useRedux";
 
 
 
 export function ProductVisualizer ({ id, name, price, picture }: IProductVisualizerProps) {
   const { isLoading, startLoading, stopLoading } = useLoading();
-  const { showErrorToast, showSuccessToast } = Toaster();
+  const { showErrorToast, showSuccessToast, showInfoToast } = Toaster();
+  const user = useAppSelector(state => state.user.user);
   const productAPI = new ProductService();
 
   const handlePurchaseButton = async () => {
     { !isLoading &&
     startLoading();
     try {
-      const pid = {
-        productId: String(id)
-      }
-      const { status }: { status: number } = await productAPI.addProduct(pid);
-      if ((status===200)) {
-        showSuccessToast(`Se ha añadido ${name} al carrito.`);
+      if (user) {
+        const pid = {
+          productId: String(id)
+        }
+        const { status }: { status: number } = await productAPI.addProduct(pid);
+        if ((status===200)) {
+          showSuccessToast(`Se ha añadido ${name} al carrito.`);
+        } else {
+          showErrorToast(`Ocurrió un error al añadir al carrito.`);
+        }
       } else {
-        showErrorToast(`Ocurrió un error al añadir al carrito.`);
+        showInfoToast(`Debe iniciar sesión para añadir productos al carrito.`)
       }
     } catch (error: any) {
       showErrorToast(`Ocurrió un error al añadir al carrito.`);

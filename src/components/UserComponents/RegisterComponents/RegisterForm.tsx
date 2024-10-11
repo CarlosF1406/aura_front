@@ -10,7 +10,7 @@ import { TRegister } from '../../../types/User.Type';
 
 export function RegisterFormPopup ({ changeMode } : { changeMode?: any }) { 
   const { isLoading, startLoading, stopLoading } = useLoading();
-  const { showErrorToast, showSuccessToast } = Toaster();
+  const { showErrorToast, showSuccessToast, showInfoToast } = Toaster();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -28,7 +28,7 @@ export function RegisterFormPopup ({ changeMode } : { changeMode?: any }) {
         const { status }: { status: number } = await userAPI.register(payload);
         if ((status===200)) {
           showSuccessToast(`¡Usuario registrado satisfactoriamente!`);
-          showSuccessToast(`Por favor, inicia sesión.`);
+          showInfoToast(`Por favor, inicia sesión.`);
         } else {
           showErrorToast(`Ocurrió un error al registrar el usuario.`);
         }

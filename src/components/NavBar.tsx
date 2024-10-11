@@ -20,16 +20,22 @@ import AuraLogo from "../assets/old_images/logo_icon_small.png";
 import { colors } from "../constants/Colors";
 import { AuthContainer } from "./UserComponents/AuthContainer";
 import { ShoppingCart } from "./ProductComponents/ShoppingCart";
+import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
+import useAuthContext from "../hooks/useAuthContext";
+import { logout } from "../features/user/userSlice";
+import { setSession } from "../services/jwt";
+import Toaster from "../hooks/useToast";
 
 
 
 export function NavBar ({ hidden = false } : { hidden?: boolean }) {
-  const logged = false;
+  const { showInfoToast } = Toaster();
+  const { dispatch } = useAuthContext();
+  const appDispatch = useAppDispatch();
+  const user = useAppSelector(state => state.user.user);
 
 
-  const handleHomeButton = async () => {
-    await localStorage.setItem("@token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDhhN2ExN2ZkNmYwODQwMjIyNzAxYiIsImlhdCI6MTcyODYyMDUyMCwiZXhwIjoxNzI4NzA2OTIwfQ.fimecPSeghDHvx9f-RBv-IfyAqqMLeSViJ-PyIz7e18");
-    const scroll = document.querySelector("#home-section")
+  const handleHomeButton = async () => {const scroll = document.querySelector("#home-section")
     scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
@@ -49,7 +55,11 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
   }
 
   const handleLogoutButton = () => {
-    console.log(`Logout`);
+    console.log(`Logout button pressed.`);
+    appDispatch(logout());
+    dispatch({ type: "LOGOUT" });
+    setSession(null);
+    showInfoToast(`Sesión cerrada con éxito.`);
   }
 
 
@@ -111,7 +121,7 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
               </PopoverContent>
             </Popover>
           </NavbarItem>
-          { logged ? 
+          { user ? 
             <NavbarItem>
               <Dropdown backdrop="opaque" placement="bottom-end">
                 <DropdownTrigger>
@@ -121,8 +131,8 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
                 </DropdownTrigger>
                 <DropdownMenu aria-label="User Menu" variant="flat" className="dark bg-neutral-300 ">
                   <DropdownItem key="profile" className="h-14 gap-2">
-                    <p className="font-semibold">Sesión iniciada como</p>
-                    <p className="font-semibold">morochus@amogus.com</p>
+                    <p className="font-semibold">Sesión iniciada como {user.username}</p>
+                    <p className="font-semibold">Correo: {user.email}</p>
                   </DropdownItem>
                   <DropdownItem key="logout" color="danger" onClick={handleLogoutButton}>
                     <p>Cerrar sesión</p>

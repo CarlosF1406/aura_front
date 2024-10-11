@@ -2,19 +2,72 @@ import React, { useState } from 'react';
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
-import { useNavigate } from "react-router-dom";
 import { colors } from '../../../constants/Colors';
+import useLoading from '../../../hooks/useLoading';
+import Toaster from '../../../hooks/useToast';
+import AuthService from '../../../services/auth/Auth.Service';
+import { TResponseData } from '../../../services/http';
+import { TUser } from '../../../types/User.Type';
+import useAuthContext from '../../../hooks/useAuthContext';
+import { useAppDispatch } from '../../../hooks/useRedux';
+import { setSession } from '../../../services/jwt';
+import { login } from '../../../features/user/userSlice';
 
 export function LoginFormPopup ({ changeMode } : { changeMode?: any }) { 
+
+  const { dispatch } = useAuthContext()
+  const appDispatch = useAppDispatch();
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { showErrorToast, showSuccessToast } = Toaster();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const authAPI = new AuthService();
 
-  const handleLogin = () => {
-    console.log('Iniciando sesión con', email, password);
-    navigate('/dashboard');
-  };
 
+  const handleLogin = async () => {
+    { !isLoading &&
+      startLoading();
+      try {
+        const payload = {
+          email: String(email),
+          password: String(password)
+        }
+        const response: TResponseData = await authAPI.login(payload);
+        if ((response.status===200)) {
+          const user: TUser = response.data;
+          const token = response.data.token;
+          const { id } = response.data;
+          const USER_ID = id, USER_TOKEN = token;
+
+          dispatch(({
+            type:"LOGIN",
+            payload: {
+              user: { 
+                id: USER_ID,
+                token: USER_TOKEN
+              }
+            }
+          }));
+          await setSession({
+            id: USER_ID,
+            token: String(USER_TOKEN)
+          });
+
+          appDispatch(login(user));
+
+          showSuccessToast(`¡Bienvenid@, ${user.username}!.`);
+        } else {
+          showErrorToast(`Ocurrió un error al iniciar sesión.`);
+        }
+      } catch (error: any) {
+        showErrorToast(`Ocurrió un error al iniciar sesión.`);
+        console.log(error);
+      } finally {
+        stopLoading();
+      }
+      }
+  } 
+  
   const handleRegisterRedirect = () => {
     changeMode && changeMode();
   };

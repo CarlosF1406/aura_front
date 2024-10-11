@@ -7,26 +7,27 @@ import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/rea
 import { ProductCard } from "./ProductCard";
 import ProductService from "../../services/products/Products.Service";
 import { ConfirmPurchaseModal } from "./ConfirmPurchaseModal";
+import { useAppSelector } from "../../hooks/useRedux";
 
 
 
 export function ShoppingCart ( ) {
   const { isLoading, startLoading, stopLoading } = useLoading();
   const [productCollection, setProductCollection] = useState<TCart[]>([]);
-  const [subTotal, setSubTotal] = useState<Number>(0);
   const productAPI = new ProductService();
-  const logged = true;
+  const user = useAppSelector(state => state.user.user);
 
   useEffect(()=>{
-    loadProducts();
+    user && loadProducts();
   }, []);
 
   const loadProducts = async () => {
     startLoading();
     try {
+      setProductCollection([]);
       const { data, status }: { data: any, status: number } = await productAPI.getCart();
       if ((status===200)) {
-        setProductCollection(data);
+        setProductCollection(data.productsCart);
         console.log(`Se cargaron los productos del carrito.`);
         calculateSubTotal();
       } else {
@@ -42,11 +43,10 @@ export function ShoppingCart ( ) {
 
   const calculateSubTotal = () => {
     if (productCollection.length>0){
-      setSubTotal(productCollection.map(a=> typeof(a.price)==="number" ? a.price : 0).reduce(function(a,b){return a+b;}));
+      return(productCollection.map(a=> (typeof(a.price)==="number" && typeof(a.amount)==="number") ? (a.price*a.amount) : 0).reduce(function(a,b){return a+b;}));
     } else {
-      setSubTotal(0);
+      return 0;
     }
-    console.log(`Loaded SubTotal: $${subTotal} COP`);
   }
 
   const handlePurchaseButton = () => {
@@ -70,10 +70,10 @@ export function ShoppingCart ( ) {
         <p>Cargando...</p>
       </> :
       <>
-        { !(productCollection.length > -1) ?
+        { !(productCollection.length > 0) ?
         <>
           <p className="font-bold text-lg" style={{color: colors.gray5}}>¡No hay nada en el carrito!</p>
-          { !logged && 
+          { !user && 
           <p className="font-semibold text-md" style={{color: colors.gray2}}>Inicie sesión para agregar productos al carrito.</p>
           }
         </> : 
@@ -94,7 +94,7 @@ export function ShoppingCart ( ) {
           <div
             className="flex flex-col px-1 gap-1 columns-1 w-full h-full"
           >
-            <p className="w-full text-right font-bold">Total a pagar: ${`${subTotal}`} COP</p>
+            <p className="w-full text-right font-bold">Total a pagar: ${`${calculateSubTotal()}`} COP</p>
             <Popover backdrop="opaque" showArrow autoFocus placement="bottom" className="dark">
               <PopoverTrigger>
                 <Button className="w-full" color="secondary" size="sm" onClick={handlePurchaseButton}>
