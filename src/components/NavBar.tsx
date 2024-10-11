@@ -47,6 +47,10 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
     scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
 
+  const handleLogoutButton = () => {
+    console.log(`Logout`);
+  }
+
 
   return (
   <>
@@ -72,7 +76,7 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem className="sm:flex lg:hidden">
-            <Dropdown placement="bottom-end">
+            <Dropdown backdrop="opaque" placement="bottom-end">
               <DropdownTrigger>
                 <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
                   <BurgerButton fill={colors.secondary}/>
@@ -95,7 +99,7 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
             </Dropdown>
           </NavbarItem>
           <NavbarItem>
-            <Popover showArrow autoFocus placement="bottom-end" className="dark">
+            <Popover backdrop="opaque" showArrow autoFocus placement="bottom-end" className="dark">
               <PopoverTrigger>
                 <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
                   <ShoppingCartIcon fill={colors.secondary}/>
@@ -108,7 +112,7 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
           </NavbarItem>
           { logged ? 
             <NavbarItem>
-              <Dropdown placement="bottom-end">
+              <Dropdown backdrop="opaque" placement="bottom-end">
                 <DropdownTrigger>
                   <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
                     <UserAccountIcon fill={colors.secondary}/>
@@ -119,14 +123,14 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
                     <p className="font-semibold">Sesión iniciada como</p>
                     <p className="font-semibold">morochus@amogus.com</p>
                   </DropdownItem>
-                  <DropdownItem key="logout" color="danger" onClick={()=>{console.log(`logout button pressed`)}}>
+                  <DropdownItem key="logout" color="danger" onClick={handleLogoutButton}>
                     <p>Cerrar sesión</p>
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </NavbarItem> :
             <NavbarItem>
-              <Popover showArrow autoFocus placement="bottom-end" className="dark">
+              <Popover showArrow autoFocus backdrop="opaque" placement="bottom-end" className="dark">
                 <PopoverTrigger>
                   <Button isIconOnly style={{backgroundColor:colors.primary}} variant="flat">
                     <UserAccountIcon fill={colors.secondary}/>

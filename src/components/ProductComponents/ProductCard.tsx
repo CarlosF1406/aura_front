@@ -5,14 +5,35 @@ import { HeadphoneIcon } from "../../assets/tsx_icons/HeadphoneIcon";
 import { PlusIcon } from "../../assets/tsx_icons/PlusIcon";
 import { MinusIcon } from "../../assets/tsx_icons/MinusIcon";
 import { DeleteIcon } from "../../assets/tsx_icons/DeleteIcon";
+import useLoading from "../../hooks/useLoading";
+import ProductService from "../../services/products/Products.Service";
+import Toaster from "../../hooks/useToast";
 
 
 
 export function ProductCard ({ id, name, price, amount, returnFunction }: IProductCardProps) {
+  const { isLoading, startLoading, stopLoading } = useLoading();
+  const { showErrorToast, showSuccessToast } = Toaster();
+  const productAPI = new ProductService();
 
-  const handlePlusButton = () => {
-    console.log(`Plus product with id ${id}`)
-    returnFunction();
+  const handlePlusButton = async () => {
+    { !isLoading &&
+    startLoading();
+    try {
+      const { status }: { status: number } = await productAPI.increaseProduct(String(id));
+      if ((status===200)) {
+        showSuccessToast(`Se aumentó la cantidad de ${name} en el carrito.`);
+      } else {
+        showErrorToast(`Ocurrió un error al aumentar la cantidad.`);
+      }
+    } catch (error: any) {
+      showErrorToast(`Ocurrió un error al aumentar la cantidad.`);
+      console.log(error);
+    } finally {
+      stopLoading();
+      returnFunction();
+    }
+    }
   }
 
   const handleMinusButton = () => {
