@@ -27,7 +27,8 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
   const logged = false;
 
 
-  const handleHomeButton = () => {
+  const handleHomeButton = async () => {
+    await localStorage.setItem("@token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDhhM2RmN2ZkNmYwODQwMjIyNzAxNyIsImlhdCI6MTcyODYxOTQ5NSwiZXhwIjoxNzI4NzA1ODk1fQ.88XCf53cioK7UePGxf3wEjqk9S3WAZNEAXj45AkYZg0");
     const scroll = document.querySelector("#home-section")
     scroll?.scrollIntoView({ behavior: "smooth", block: "start" })
   }
