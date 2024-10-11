@@ -4,20 +4,27 @@ import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
 import { useNavigate } from "react-router-dom";
 import { colors } from '../../../constants/Colors';
+import { axios } from 'axios'
 
 export function LoginFormPopup ({ changeMode } : { changeMode?: any }) { 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError ] = useState('')
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    console.log('Iniciando sesión con', email, password);
-    navigate('/dashboard');
-  };
-
-  const handleRegisterRedirect = () => {
-    changeMode && changeMode();
-  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try{
+      const reponse = await axios.post('el url de la api',{
+        email,
+        password
+      })
+      console.log('Login exitoso: ', reponse.data)
+    }catch(er){
+      setError('Error al inciar sección')
+      console.error(er)
+    }
+  } 
 
   return (
     <div style={popupStyle}>
