@@ -7,36 +7,21 @@ class AuthService {
   private BASE: string;
 
   constructor() {
-    this.BASE = "/auth";
+    this.BASE = "/api";
   }
 
   public async login(values: TLogin): Promise<AxiosResponse<TResponseData>> {
-    return await http.post(`${this.BASE}/authenticate`, values);
+    return await http.post(`${this.BASE}/login`, values);
   }
 
-  public async restore(): Promise<AxiosResponse<TResponseData>>{
-    return await http.get(`${this.BASE}/profile`, {
+  public async logout(): Promise<AxiosResponse<TResponseData>> {
+    return await http.post(`${this.BASE}/logout`, {
       headers: {
-      Authorization: `Bearer ${localStorage.getItem(`@token`)}`
-      }
-    })
-  }
-
-  public async register(values: unknown): Promise<AxiosResponse<TResponseData>> {
-    return await http.post(`${this.BASE}/register`, values);
-  }
-
-  public async profile(): Promise<AxiosResponse<TResponseData>> {
-    return await http.get(`${this.BASE}/profile`);
-  }
-
-  public updateProfile(values: unknown,userId: number): Promise<AxiosResponse<TResponseData>> {
-    return http.put(`${this.BASE}/users/${userId}`, values, {
-      headers: {
-      Authorization: `Bearer ${localStorage.getItem(`@token`)}`
-      }
+        Authorization: `Bearer ${localStorage.getItem(`@token`)}`
+        }
     });
   }
+
 }
 
 export default AuthService;
