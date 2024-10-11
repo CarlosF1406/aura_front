@@ -1,37 +1,61 @@
-import { Button, Image } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { colors } from "../../constants/Colors";
-import { IProductVisualizerProps } from "../../interfaces/ProductVisualizer.Interface";
+import { IProductCardProps } from "../../interfaces/ProductCard.Interface";
+import { HeadphoneIcon } from "../../assets/tsx_icons/HeadphoneIcon";
+import { PlusIcon } from "../../assets/tsx_icons/PlusIcon";
+import { MinusIcon } from "../../assets/tsx_icons/MinusIcon";
+import { DeleteIcon } from "../../assets/tsx_icons/DeleteIcon";
 
 
 
-export function ProductCard ({ id, name, price, picture }: IProductVisualizerProps) {
+export function ProductCard ({ id, name, price, amount, returnFunction }: IProductCardProps) {
 
-  const handlePurchaseButton = () => {
-    console.log(`Added product with id ${id}`)
+  const handlePlusButton = () => {
+    console.log(`Plus product with id ${id}`)
+    returnFunction();
+  }
+
+  const handleMinusButton = () => {
+    if (amount && (amount-1)==0) {
+      handleDeleteButton();
+      return;
+    }
+    console.log(`Minus product with id ${id}`)
+    returnFunction();
+  }
+
+  const handleDeleteButton = () => {
+    console.log(`Delete product with id ${id}`)
+    returnFunction();
   }
 
   return (
     <div 
-      aria-label="Product showcase"
-      className="flex flex-row gap-4 p-3 h-full justify-start items-center bg-white"
+      aria-label="Product card"
+      className="flex flex-row gap-4 p-2 h-full justify-between items-center"
       style={{
         minWidth: `400px`,
         borderRadius: 15,
       }}
     >
-      <p className="font-bold text-xl" style={{color: colors.gray5}}>{name}</p>
-      <p className="font-semibold text-lg" style={{color: colors.gray2}}>${price} COP</p>
-      <Image 
-          alt={"Product image"}
-          src={picture}
-          style={{ 
-            maxHeight: `30vh`
-          }}
-          className="pointer-events-none"
-        />
-        <Button color="secondary" size="lg" onClick={handlePurchaseButton}>
-          Añadir al carrito
-        </Button>
+        <HeadphoneIcon size={48} fill={colors.primary}/>
+        <p className="font-bold text-md" style={{color: colors.gray5}}>{name}</p>
+        <p className="font-semibold text-md" style={{color: colors.gray2}}>${price} COP</p>
+        <p className="font-semibold text-md" style={{color: colors.gray2}}>Cantidad: {amount}</p>
+        <div
+          aria-label="Product buttons"
+          className="flex flex-row gap-1 justify-end items-center bg-white"
+        >
+          <Button isIconOnly color="secondary" size="sm" onClick={handlePlusButton}>
+            <PlusIcon/>
+          </Button>
+          <Button isIconOnly color="secondary" size="sm" onClick={handleMinusButton}>
+            <MinusIcon/>
+          </Button>
+          <Button isIconOnly color="secondary" size="sm" onClick={handleDeleteButton}>
+            <DeleteIcon/>
+          </Button>
+        </div>
     </div>
 
   )
