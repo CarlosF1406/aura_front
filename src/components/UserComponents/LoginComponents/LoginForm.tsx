@@ -11,6 +11,7 @@ import { TUser } from '../../../types/User.Type';
 import useAuthContext from '../../../hooks/useAuthContext';
 import { useAppDispatch } from '../../../hooks/useRedux';
 import { setSession } from '../../../services/jwt';
+import { login } from '../../../features/user/userSlice';
 
 export function LoginFormPopup ({ changeMode } : { changeMode?: any }) { 
 

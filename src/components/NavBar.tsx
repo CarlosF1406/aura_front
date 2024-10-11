@@ -20,11 +20,16 @@ import AuraLogo from "../assets/old_images/logo_icon_small.png";
 import { colors } from "../constants/Colors";
 import { AuthContainer } from "./UserComponents/AuthContainer";
 import { ShoppingCart } from "./ProductComponents/ShoppingCart";
-import { useAppSelector } from "../hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "../hooks/useRedux";
+import useAuthContext from "../hooks/useAuthContext";
+import { logout } from "../features/user/userSlice";
+import { setSession } from "../services/jwt";
 
 
 
 export function NavBar ({ hidden = false } : { hidden?: boolean }) {
+  const { dispatch } = useAuthContext();
+  const appDispatch = useAppDispatch();
   const user = useAppSelector(state => state.user.user);
 
 
@@ -48,7 +53,10 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
   }
 
   const handleLogoutButton = () => {
-    console.log(`Logout`);
+    console.log(`Logout button pressed.`);
+    appDispatch(logout());
+    dispatch({ type: "LOGOUT" });
+    setSession(null);
   }
 
 
@@ -120,8 +128,8 @@ export function NavBar ({ hidden = false } : { hidden?: boolean }) {
                 </DropdownTrigger>
                 <DropdownMenu aria-label="User Menu" variant="flat" className="dark bg-neutral-300 ">
                   <DropdownItem key="profile" className="h-14 gap-2">
-                    <p className="font-semibold">Sesión iniciada como</p>
-                    <p className="font-semibold">morochus@amogus.com</p>
+                    <p className="font-semibold">Sesión iniciada como {user.username}</p>
+                    <p className="font-semibold">Correo: {user.email}</p>
                   </DropdownItem>
                   <DropdownItem key="logout" color="danger" onClick={handleLogoutButton}>
                     <p>Cerrar sesión</p>
