@@ -36,18 +36,48 @@ export function ProductCard ({ id, name, price, amount, returnFunction }: IProdu
     }
   }
 
-  const handleMinusButton = () => {
+  const handleMinusButton = async () => {
     if (amount && (amount-1)==0) {
       handleDeleteButton();
       return;
     }
-    console.log(`Minus product with id ${id}`)
-    returnFunction();
+    { !isLoading &&
+      startLoading();
+      try {
+        const { status }: { status: number } = await productAPI.decreaseProduct(String(id));
+        if ((status===200)) {
+          showSuccessToast(`Se disminuyó la cantidad de ${name} en el carrito.`);
+        } else {
+          showErrorToast(`Ocurrió un error al disminuir la cantidad.`);
+        }
+      } catch (error: any) {
+        showErrorToast(`Ocurrió un error al disminuir la cantidad.`);
+        console.log(error);
+      } finally {
+        stopLoading();
+        returnFunction();
+      }
+    }
   }
 
-  const handleDeleteButton = () => {
-    console.log(`Delete product with id ${id}`)
-    returnFunction();
+  const handleDeleteButton = async () => {
+    { !isLoading &&
+      startLoading();
+      try {
+        const { status }: { status: number } = await productAPI.deleteProduct(String(id));
+        if ((status===200)) {
+          showSuccessToast(`Se eliminó ${name} del carrito.`);
+        } else {
+          showErrorToast(`Ocurrió un error al eliminar el producto.`);
+        }
+      } catch (error: any) {
+        showErrorToast(`Ocurrió un error al eliminar el producto.`);
+        console.log(error);
+      } finally {
+        stopLoading();
+        returnFunction();
+      }
+    }
   }
 
   return (

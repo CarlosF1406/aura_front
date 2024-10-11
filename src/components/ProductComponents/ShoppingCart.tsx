@@ -3,8 +3,10 @@ import { colors } from "../../constants/Colors";
 import { TCart } from "../../types/Product.Type";
 import useLoading from "../../hooks/useLoading";
 import { LoadingIcon } from "../../assets/tsx_icons/LoadingIcon";
-import { Button } from "@nextui-org/react";
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import { ProductCard } from "./ProductCard";
+import ProductService from "../../services/products/Products.Service";
+import { ConfirmPurchaseModal } from "./ConfirmPurchaseModal";
 
 
 
@@ -12,6 +14,7 @@ export function ShoppingCart ( ) {
   const { isLoading, startLoading, stopLoading } = useLoading();
   const [productCollection, setProductCollection] = useState<TCart[]>([]);
   const [subTotal, setSubTotal] = useState<Number>(0);
+  const productAPI = new ProductService();
   const logged = true;
 
   useEffect(()=>{
@@ -21,8 +24,14 @@ export function ShoppingCart ( ) {
   const loadProducts = async () => {
     startLoading();
     try {
-      console.log(`Loaded products`);
-      calculateSubTotal();
+      const { data, status }: { data: any, status: number } = await productAPI.getCart();
+      if ((status===200)) {
+        setProductCollection(data);
+        console.log(`Se cargaron los productos del carrito.`);
+        calculateSubTotal();
+      } else {
+        console.log(`No se pudo cargar el carrito.`);
+      }
     } catch (error: any) {
       setProductCollection([]);
       console.log(error);
@@ -83,12 +92,19 @@ export function ShoppingCart ( ) {
             ))}
           </div>
           <div
-            className="flex flex-col gap-1 columns-1 w-full h-full"
+            className="flex flex-col px-1 gap-1 columns-1 w-full h-full"
           >
             <p className="w-full text-right font-bold">Total a pagar: ${`${subTotal}`} COP</p>
-            <Button className="w-full" color="secondary" size="sm" onClick={handlePurchaseButton}>
-              Confirmar el pago
-            </Button>
+            <Popover backdrop="opaque" showArrow autoFocus placement="bottom" className="dark">
+              <PopoverTrigger>
+                <Button className="w-full" color="secondary" size="sm" onClick={handlePurchaseButton}>
+                  Realizar la solicitud
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="p-1">
+                <ConfirmPurchaseModal returnFunction={loadProducts}/>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
         }
